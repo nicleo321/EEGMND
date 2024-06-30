@@ -2,9 +2,9 @@
 
 subjectdir = 'C:\Users\nicol\Desktop\Masters\Semester 2\NMDA\EEGAnalysis\SecondLevel\SecLevMat';
 cd(subjectdir)
-conditiondir = 'C:\Users\nicol\Desktop\Masters\Semester 2\NMDA\EEGAnalysis\SecondLevel\aefdfMspmeeg_subject1'
+conditiondir = 'C:\Users\nicol\Desktop\Masters\Semester 2\NMDA\EEGAnalysis\SecondLevel\aefdfMspmeeg_subject1';
 cd(conditiondir) 
-spmdir = 'C:\Users\nicol\Desktop\Masters\Semester 2\NMDA\EEGAnalysis\SecondLevel\SPM'
+spmdir = 'C:\Users\nicol\Desktop\Masters\Semester 2\NMDA\EEGAnalysis\SecondLevel\SPM';
 cd(spmdir)
 
 matlabbatch{1}.spm.meeg.images.convert2images.D = {strcat(subjectdir, '\aefdfMspmeeg_subject1.mat')};
