@@ -7,7 +7,7 @@ cd(conditiondir)
 spmdir = 'C:\Users\nicol\Desktop\Masters\Semester 2\NMDA\EEGAnalysis\SecondLevel\SPM'
 cd(spmdir)
 
-matlabbatch{1}.spm.meeg.images.convert2images.D = {'C:\Users\nicol\Desktop\Masters\Semester 2\NMDA\EEGAnalysis\SecondLevel\SecLevMat\aefdfMspmeeg_subject1.mat'};
+matlabbatch{1}.spm.meeg.images.convert2images.D = {strcat(subjectdir, '\aefdfMspmeeg_subject1.mat')};
 matlabbatch{1}.spm.meeg.images.convert2images.mode = 'scalp x time';
 matlabbatch{1}.spm.meeg.images.convert2images.conditions = cell(1, 0);
 matlabbatch{1}.spm.meeg.images.convert2images.channels{1}.type = 'EEG';
