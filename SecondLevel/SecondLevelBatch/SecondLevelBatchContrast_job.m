@@ -1,8 +1,12 @@
-%-----------------------------------------------------------------------
-% Job saved on 30-Jun-2024 22:27:04 by cfg_util (rev $Rev: 7345 $)
-% spm SPM - SPM12 (7771)
-% cfg_basicio BasicIO - Unknown
-%-----------------------------------------------------------------------
+
+
+subjectdir = 'C:\Users\nicol\Desktop\Masters\Semester 2\NMDA\EEGAnalysis\SecondLevel\SecLevMat';
+cd(subjectdir)
+conditiondir = 'C:\Users\nicol\Desktop\Masters\Semester 2\NMDA\EEGAnalysis\SecondLevel\aefdfMspmeeg_subject1'
+cd(conditiondir) 
+spmdir = C:\Users\nicol\Desktop\Masters\Semester 2\NMDA\EEGAnalysis\SecondLevel\SPM\SPM.mat
+cd(spmdir)
+
 matlabbatch{1}.spm.meeg.images.convert2images.D = {'C:\Users\nicol\Desktop\Masters\Semester 2\NMDA\EEGAnalysis\SecondLevel\SecLevMat\aefdfMspmeeg_subject1.mat'};
 matlabbatch{1}.spm.meeg.images.convert2images.mode = 'scalp x time';
 matlabbatch{1}.spm.meeg.images.convert2images.conditions = cell(1, 0);
