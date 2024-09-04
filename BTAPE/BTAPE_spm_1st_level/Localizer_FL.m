@@ -64,12 +64,12 @@ job{1}.spm.stats.fmri_spec.sess(2).hpf = 128;
 
 % Remaining parameters
 job{1}.spm.stats.fmri_spec.fact = struct('name', {}, 'levels', {});
-job{1}.spm.stats.fmri_spec.bases.fir.length = 16;
-job{1}.spm.stats.fmri_spec.bases.fir.order = 16;
+job{1}.spm.stats.fmri_spec.bases.fir.length = 16; % basis function selected is finite impulse response with window length as 16 
+job{1}.spm.stats.fmri_spec.bases.fir.order = 16; %finite impulse response with order 
 job{1}.spm.stats.fmri_spec.volt = 1;
 job{1}.spm.stats.fmri_spec.global = 'None';
 job{1}.spm.stats.fmri_spec.mthresh = 0.8;
-job{1}.spm.stats.fmri_spec.mask = {'C:\Users\zebaq\Documents\MATLAB\fMRI\BTAPE\BIDS\sub-01\anat\sub-01_T1w\c1MFBTAPE-0024-00001-000001.nii,1'};
+job{1}.spm.stats.fmri_spec.mask = {'C:\Users\zebaq\Documents\MATLAB\fMRI\BTAPE\BIDS\sub-01\anat\sub-01_T1w\c1MFBTAPE-0024-00001-000001.nii,1'}; %explicitly masking with the structural image 
 job{1}.spm.stats.fmri_spec.cvi = 'AR(1)';
 
 spm_jobman('run', job);
