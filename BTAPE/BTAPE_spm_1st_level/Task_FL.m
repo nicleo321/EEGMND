@@ -34,44 +34,48 @@ for j = 1:numel(subfolders)
     % Generate file paths for Runs
     scans_run = arrayfun(@(i) fullfile(current_subfolder, sprintf(func_files{j}, i, i)), 1:360, 'UniformOutput', false);
     
-    job{1}.spm.stats.fmri_spec.dir = {base_dir};
-    job{1}.spm.stats.fmri_spec.timing.units = 'secs';
-    job{1}.spm.stats.fmri_spec.timing.RT = 1;
-    job{1}.spm.stats.fmri_spec.timing.fmri_t = 16;
-    job{1}.spm.stats.fmri_spec.timing.fmri_t0 = 8;
+    job{j}.spm.stats.fmri_spec.dir = {base_dir};
+    job{j}.spm.stats.fmri_spec.timing.units = 'secs';
+    job{j}.spm.stats.fmri_spec.timing.RT = 1;
+    job{j}.spm.stats.fmri_spec.timing.fmri_t = 16;
+    job{j}.spm.stats.fmri_spec.timing.fmri_t0 = 8;
     %%
-    job{1}.spm.stats.fmri_spec.sess(1).scans = scans_run';
-    job{1}.spm.stats.fmri_spec.sess(1).cond(1).name = 'Condition 1';
-    job{1}.spm.stats.fmri_spec.sess(1).cond(1).onset = [4 
+    job{j}.spm.stats.fmri_spec.sess(1).scans = scans_run';
+    job{j}.spm.stats.fmri_spec.sess(1).cond(1).name = 'Condition 1';
+    job{j}.spm.stats.fmri_spec.sess(1).cond(1).onset = [4 
                                                                 40
                                                                 112
                                                                 184
                                                                 256];
-    job{1}.spm.stats.fmri_spec.sess(1).cond(1).duration = 24;
-    job{1}.spm.stats.fmri_spec.sess(1).cond(1).tmod = 0;
-    job{1}.spm.stats.fmri_spec.sess(1).cond(1).pmod = struct('name', {}, 'param', {}, 'poly', {});
-    job{1}.spm.stats.fmri_spec.sess(1).cond(1).orth = 1;
-    job{1}.spm.stats.fmri_spec.sess(1).cond(2).name = 'Condition 2';
-    job{1}.spm.stats.fmri_spec.sess(1).cond(2).onset = [76
+    job{j}.spm.stats.fmri_spec.sess(1).cond(1).duration = 24;
+    job{j}.spm.stats.fmri_spec.sess(1).cond(1).tmod = 0;
+    job{j}.spm.stats.fmri_spec.sess(1).cond(1).pmod = struct('name', {}, 'param', {}, 'poly', {});
+    job{j}.spm.stats.fmri_spec.sess(1).cond(1).orth = 1;
+    job{j}.spm.stats.fmri_spec.sess(1).cond(2).name = 'Condition 2';
+    job{j}.spm.stats.fmri_spec.sess(1).cond(2).onset = [76
                                                                 148
                                                                 220
                                                                 292
                                                                 328];
-    job{1}.spm.stats.fmri_spec.sess(1).cond(2).duration = 24;
-    job{1}.spm.stats.fmri_spec.sess(1).cond(2).tmod = 0;
-    job{1}.spm.stats.fmri_spec.sess(1).cond(2).pmod = struct('name', {}, 'param', {}, 'poly', {});
-    job{1}.spm.stats.fmri_spec.sess(1).cond(2).orth = 1;
-    job{1}.spm.stats.fmri_spec.sess(1).multi = {''};
-    job{1}.spm.stats.fmri_spec.sess(1).regress = struct('name', {}, 'val', {});
-    job{1}.spm.stats.fmri_spec.sess(1).multi_reg = {fullfile(current_subfolder,mot_reg{j})};
-    job{1}.spm.stats.fmri_spec.sess(1).hpf = 128;
-    spm_jobman('run', job);
-    clear job % clear job
-    %% %Estimation
-   
-    job{1}.spm.stats.fmri_est.spmmat = {strcat(base_dir,'\SPM.mat')};
-    job{1}.spm.stats.fmri_est.write_residuals = 0;
-    job{1}.spm.stats.fmri_est.method.Classical = 1;
-    spm_jobman('run',job)
-
+    job{j}.spm.stats.fmri_spec.sess(1).cond(2).duration = 24;
+    job{j}.spm.stats.fmri_spec.sess(1).cond(2).tmod = 0;
+    job{j}.spm.stats.fmri_spec.sess(1).cond(2).pmod = struct('name', {}, 'param', {}, 'poly', {});
+    job{j}.spm.stats.fmri_spec.sess(1).cond(2).orth = 1;
+    job{j}.spm.stats.fmri_spec.sess(1).multi = {''};
+    job{j}.spm.stats.fmri_spec.sess(1).regress = struct('name', {}, 'val', {});
+    job{j}.spm.stats.fmri_spec.sess(1).multi_reg = {fullfile(current_subfolder,mot_reg{j})};
+    job{j}.spm.stats.fmri_spec.sess(1).hpf = 128;
 end
+job{j}.spm.stats.fmri_spec.fact = struct('name', {}, 'levels', {});
+job{j}.spm.stats.fmri_spec.bases.hrf.derivs = [0 0];
+job{j}.spm.stats.fmri_spec.volt = 1;
+job{j}.spm.stats.fmri_spec.global = 'None';
+job{j}.spm.stats.fmri_spec.mthresh = 0.8;
+job{j}.spm.stats.fmri_spec.mask = {''};
+job{j}.spm.stats.fmri_spec.cvi = 'AR(1)';
+%% %Estimation
+   
+job{j}.spm.stats.fmri_est.spmmat = {strcat(base_dir,'\SPM.mat')};
+job{j}.spm.stats.fmri_est.write_residuals = 0;
+job{j}.spm.stats.fmri_est.method.Classical = 1;
+ spm_jobman('run',job)
