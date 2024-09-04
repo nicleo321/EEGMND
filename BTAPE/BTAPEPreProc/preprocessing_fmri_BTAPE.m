@@ -16,9 +16,9 @@ subfolders = {'sub-01_task-BTP_run-5_bold', 'sub-01_task-BTP_run-8_bold', ...
               'sub-01_task-BTP_run-11_bold', 'sub-01_task-BTP_run-14_bold', ...
               'sub-01_task-BTP_run-17_bold', 'sub-01_task-BTP_run-19_bold', ...
               'sub-01_task-BTP_run-21_bold','sub-01_task-BTP_run-23_bold'};
-func_files = {'swrMFBTAPE-0005-%05d-%06d.nii,1', 'swrMFBTAPE-0008-%05d-%06d.nii,1', ...
-              'swrMFBTAPE-0011-%05d-%06d.nii,1', 'swrMFBTAPE-0014-%05d-%06d.nii,1', ...
-              'swrMFBTAPE-0017-%05d-%06d.nii,1', 'swrMFBTAPE-0019-%05d-%06d.nii,1'};
+func_files = {'MFBTAPE-0005-%05d-%06d.nii,1', 'MFBTAPE-0008-%05d-%06d.nii,1', ...
+              'MFBTAPE-0011-%05d-%06d.nii,1', 'MFBTAPE-0014-%05d-%06d.nii,1', ...
+              'MFBTAPE-0017-%05d-%06d.nii,1', 'MFBTAPE-0019-%05d-%06d.nii,1'};
 
 
 anatdir= 'C:\Users\zebaq\Documents\MATLAB\fMRI\BTAPE\BIDS\sub-01\anat\sub-01_T1w';
@@ -55,21 +55,21 @@ addpath(anatdir)
        % such that they reflect the relative orientation of the data after correction for movement artefacts
       
         
-        job{i}.spm.spatial.realign.estwrite.data = {scans_run};          % Assign .nii files to the job structure
-        job{i}.spm.spatial.realign.estwrite.eoptions.quality  = 0.9;     % Estimation option quality 
-        job{i}.spm.spatial.realign.estwrite.eoptions.sep      = 4;       % Estimation option separation
-        job{i}.spm.spatial.realign.estwrite.eoptions.fwhm     = 5;       % Estimation option smoothing
-        job{i}.spm.spatial.realign.estwrite.eoptions.rtm      = 1;       % Estimation option reference volume (1: mean image)
-        job{i}.spm.spatial.realign.estwrite.eoptions.interp   = 2;       % Estimation option interpolation
-        job{i}.spm.spatial.realign.estwrite.eoptions.wrap     = [0 0 0]; % Estimation option wrapping
-        job{i}.spm.spatial.realign.estwrite.eoptions.weight   = '';      % Estimation option weighting
+        job{1}.spm.spatial.realign.estwrite.data = {scans_run};          % Assign .nii files to the job structure
+        job{1}.spm.spatial.realign.estwrite.eoptions.quality  = 0.9;     % Estimation option quality 
+        job{1}.spm.spatial.realign.estwrite.eoptions.sep      = 4;       % Estimation option separation
+        job{1}.spm.spatial.realign.estwrite.eoptions.fwhm     = 5;       % Estimation option smoothing
+        job{1}.spm.spatial.realign.estwrite.eoptions.rtm      = 1;       % Estimation option reference volume (1: mean image)
+        job{1}.spm.spatial.realign.estwrite.eoptions.interp   = 2;       % Estimation option interpolation
+        job{1}.spm.spatial.realign.estwrite.eoptions.wrap     = [0 0 0]; % Estimation option wrapping
+        job{1}.spm.spatial.realign.estwrite.eoptions.weight   = '';      % Estimation option weighting
     
         % Reslicing options
-        job{i}.spm.spatial.realign.estwrite.roptions.which    = [0 1];   % Resampling option (1: all images)
-        job{i}.spm.spatial.realign.estwrite.roptions.interp   = 4;       % Resampling option (4th degree B-spline)
-        job{i}.spm.spatial.realign.estwrite.roptions.wrap     = [0 0 0]; % Resampling option wrapping
-        job{i}.spm.spatial.realign.estwrite.roptions.mask     = 1;       % Resampling option mask
-        job{i}.spm.spatial.realign.estwrite.roptions.prefix   = 'r';     % Resampling output prefix
+        job{1}.spm.spatial.realign.estwrite.roptions.which    = [0 1];   % Resampling option (1: all images)
+        job{1}.spm.spatial.realign.estwrite.roptions.interp   = 4;       % Resampling option (4th degree B-spline)
+        job{1}.spm.spatial.realign.estwrite.roptions.wrap     = [0 0 0]; % Resampling option wrapping
+        job{1}.spm.spatial.realign.estwrite.roptions.mask     = 1;       % Resampling option mask
+        job{1}.spm.spatial.realign.estwrite.roptions.prefix   = 'r';     % Resampling output prefix
         % Run realignment jobs
         spm_jobman('run', job);
     end
