@@ -19,6 +19,9 @@ subfolders = {'sub-01_task-BTP_run-5_bold', 'sub-01_task-BTP_run-8_bold', ...
 func_files = {'MFBTAPE-0005-%05d-%06d.nii,1', 'MFBTAPE-0008-%05d-%06d.nii,1', ...
               'MFBTAPE-0011-%05d-%06d.nii,1', 'MFBTAPE-0014-%05d-%06d.nii,1', ...
               'MFBTAPE-0017-%05d-%06d.nii,1', 'MFBTAPE-0019-%05d-%06d.nii,1'};
+re_func_files =  {'rMFBTAPE-0005-%05d-%06d.nii,1', 'rMFBTAPE-0008-%05d-%06d.nii,1', ...  %realigned functinal files for normalisation
+                 'rMFBTAPE-0011-%05d-%06d.nii,1', 'rMFBTAPE-0014-%05d-%06d.nii,1', ...
+                 'rMFBTAPE-0017-%05d-%06d.nii,1', 'rMFBTAPE-0019-%05d-%06d.nii,1'};
 
 
 anatdir= 'C:\Users\zebaq\Documents\MATLAB\fMRI\BTAPE\BIDS\sub-01\anat\sub-01_T1w';
@@ -88,7 +91,7 @@ addpath(anatdir)
         job{1}.spm.spatial.coreg.estimate.eoptions.tol = [0.02 0.02 0.02 0.001 0.001 0.001 0.01 0.01 0.01 0.001 0.001 0.001];
         job{1}.spm.spatial.coreg.estimate.eoptions.fwhm = [7 7];
         spm_jobman('run', job);
-        clear job % clear job
+        
     end
      %% 
     %SEGMENTATION
@@ -135,7 +138,7 @@ addpath(anatdir)
         job{1}.spm.spatial.preproc.warp.bb = [NaN NaN NaN
                                                       NaN NaN NaN];
         spm_jobman('run',job) % execute the batch
-        clear job% clear job
+        
     end
     %% 
      %NORMALISATION 
@@ -144,15 +147,17 @@ addpath(anatdir)
         % These files have the prefix w.
     if contains(task,'4')
         disp('implementing task 4');
+         re_scans_run = arrayfun(@(i) fullfile(current_subfolder, sprintf(re_func_files{j}, i, i)), 1:360, 'UniformOutput', false);
+         re_scans_run = re_scans_run';
         job{1}.spm.spatial.normalise.write.subj.def = {strcat(anatdir,'\y_MFBTAPE-0024-00001-000001.nii')};
-        job{1}.spm.spatial.normalise.write.subj.resample =  scans_run;
+        job{1}.spm.spatial.normalise.write.subj.resample =  re_scans_run;
         job{1}.spm.spatial.normalise.write.woptions.bb = [-78 -112 -70
                                                           78 76 85];
         job{1}.spm.spatial.normalise.write.woptions.vox = [3 3 3];
         job{1}.spm.spatial.normalise.write.woptions.interp = 4;
         job{1}.spm.spatial.normalise.write.woptions.prefix = 'w';
         spm_jobman('run',job) % execute the batch
-        clear job% clear job
+        
     end
      %% 
     if contains(task,'5')
@@ -168,7 +173,7 @@ addpath(anatdir)
         job{1}.spm.spatial.normalise.write.woptions.interp = 4;
         job{1}.spm.spatial.normalise.write.woptions.prefix = 'w';
         spm_jobman('run',job) % execute the batch
-        clear job% clear job
+        
     end
      if contains(task,'6')
         disp('implementing task 6');
@@ -179,7 +184,7 @@ addpath(anatdir)
         job{1}.spm.spatial.smooth.im = 0;
         job{1}.spm.spatial.smooth.prefix = 's';
         spm_jobman('run',job) % execute the batch
-        clear job% clear job
+        
      end
 
  end
