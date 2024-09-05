@@ -65,7 +65,7 @@ addpath(anatdir)
         job{1}.spm.spatial.realign.estwrite.eoptions.weight   = '';      % Estimation option weighting
     
         % Reslicing options
-        job{1}.spm.spatial.realign.estwrite.roptions.which    = [0 1];   % Resampling option (1: all images)
+        job{1}.spm.spatial.realign.estwrite.roptions.which    = [2 1];  % Resampling option ( all images+ mean)
         job{1}.spm.spatial.realign.estwrite.roptions.interp   = 4;       % Resampling option (4th degree B-spline)
         job{1}.spm.spatial.realign.estwrite.roptions.wrap     = [0 0 0]; % Resampling option wrapping
         job{1}.spm.spatial.realign.estwrite.roptions.mask     = 1;       % Resampling option mask
