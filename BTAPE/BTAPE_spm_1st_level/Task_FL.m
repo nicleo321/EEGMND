@@ -40,31 +40,31 @@ for j = 1:numel(subfolders)
     
    
     %%
-    job{j}.spm.stats.fmri_spec.sess(1).scans = scans_run';
-    job{j}.spm.stats.fmri_spec.sess(1).cond(1).name = 'Condition 1';
-    job{j}.spm.stats.fmri_spec.sess(1).cond(1).onset = [4 
+   job{1}.spm.stats.fmri_spec.sess(1).scans = scans_run';
+   job{1}.spm.stats.fmri_spec.sess(1).cond(1).name = 'Condition 1';
+   job{1}.spm.stats.fmri_spec.sess(1).cond(1).onset = [4 
                                                                 40
                                                                 112
                                                                 184
                                                                 256];
-    job{j}.spm.stats.fmri_spec.sess(1).cond(1).duration = 24;
-    job{j}.spm.stats.fmri_spec.sess(1).cond(1).tmod = 0;
-    job{j}.spm.stats.fmri_spec.sess(1).cond(1).pmod = struct('name', {}, 'param', {}, 'poly', {});
-    job{j}.spm.stats.fmri_spec.sess(1).cond(1).orth = 1;
-    job{j}.spm.stats.fmri_spec.sess(1).cond(2).name = 'Condition 2';
-    job{j}.spm.stats.fmri_spec.sess(1).cond(2).onset = [76
+   job{1}.spm.stats.fmri_spec.sess(1).cond(1).duration = 24;
+   job{1}.spm.stats.fmri_spec.sess(1).cond(1).tmod = 0;
+   job{1}.spm.stats.fmri_spec.sess(1).cond(1).pmod = struct('name', {}, 'param', {}, 'poly', {});
+   job{1}.spm.stats.fmri_spec.sess(1).cond(1).orth = 1;
+   job{1}.spm.stats.fmri_spec.sess(1).cond(2).name = 'Condition 2';
+   job{1}.spm.stats.fmri_spec.sess(1).cond(2).onset = [76
                                                                 148
                                                                 220
                                                                 292
                                                                 328];
-    job{j}.spm.stats.fmri_spec.sess(1).cond(2).duration = 24;
-    job{j}.spm.stats.fmri_spec.sess(1).cond(2).tmod = 0;
-    job{j}.spm.stats.fmri_spec.sess(1).cond(2).pmod = struct('name', {}, 'param', {}, 'poly', {});
-    job{j}.spm.stats.fmri_spec.sess(1).cond(2).orth = 1;
-    job{j}.spm.stats.fmri_spec.sess(1).multi = {''};
-    job{j}.spm.stats.fmri_spec.sess(1).regress = struct('name', {}, 'val', {});
-    job{j}.spm.stats.fmri_spec.sess(1).multi_reg = {fullfile(current_subfolder,mot_reg{j})};
-    job{j}.spm.stats.fmri_spec.sess(1).hpf = 128;
+   job{1}.spm.stats.fmri_spec.sess(1).cond(2).duration = 24;
+   job{1}.spm.stats.fmri_spec.sess(1).cond(2).tmod = 0;
+   job{1}.spm.stats.fmri_spec.sess(1).cond(2).pmod = struct('name', {}, 'param', {}, 'poly', {});
+   job{1}.spm.stats.fmri_spec.sess(1).cond(2).orth = 1;
+   job{1}.spm.stats.fmri_spec.sess(1).multi = {''};
+   job{1}.spm.stats.fmri_spec.sess(1).regress = struct('name', {}, 'val', {});
+   job{1}.spm.stats.fmri_spec.sess(1).multi_reg = {fullfile(current_subfolder,mot_reg{j})};
+   job{1}.spm.stats.fmri_spec.sess(1).hpf = 128;
 end
 job{1}.spm.stats.fmri_spec.fact = struct('name', {}, 'levels', {});
 job{1}.spm.stats.fmri_spec.bases.hrf.derivs = [1 0]; %time derivative
