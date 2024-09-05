@@ -16,14 +16,16 @@ subfolders = {'sub-01_task-BTP_run-5_bold', 'sub-01_task-BTP_run-8_bold', ...
               'sub-01_task-BTP_run-11_bold', 'sub-01_task-BTP_run-14_bold', ...
               'sub-01_task-BTP_run-17_bold', 'sub-01_task-BTP_run-19_bold', ...
               'sub-01_task-BTP_run-21_bold','sub-01_task-BTP_run-23_bold'};
-func_files = {'MFBTAPE-0005-%05d-%06d.nii,1', 'MFBTAPE-0008-%05d-%06d.nii,1', ...
+func_files = {'MFBTAPE-0005-%05d-%06d.nii,1', 'MFBTAPE-0008-%05d-%06d.nii,1', ...       %.nii functional files converted from .dcm files
               'MFBTAPE-0011-%05d-%06d.nii,1', 'MFBTAPE-0014-%05d-%06d.nii,1', ...
               'MFBTAPE-0017-%05d-%06d.nii,1', 'MFBTAPE-0019-%05d-%06d.nii,1'};
 re_func_files =  {'rMFBTAPE-0005-%05d-%06d.nii,1', 'rMFBTAPE-0008-%05d-%06d.nii,1', ...  %realigned functinal files for normalisation
                  'rMFBTAPE-0011-%05d-%06d.nii,1', 'rMFBTAPE-0014-%05d-%06d.nii,1', ...
-                 'rMFBTAPE-0017-%05d-%06d.nii,1', 'rMFBTAPE-0019-%05d-%06d.nii,1'};
-
-
+                 'rMFBTAPE-0017-%05d-%06d.nii,1', 'rMFBTAPE-0019-%05d-%06d.nii,1'};      
+norm_func_files = {'wrMFBTAPE-0005-%05d-%06d.nii,1', 'wrMFBTAPE-0008-%05d-%06d.nii,1', ...    %spatially normalised files for smoothing      
+              'wrMFBTAPE-0011-%05d-%06d.nii,1', 'wrMFBTAPE-0014-%05d-%06d.nii,1', ...
+              'wrMFBTAPE-0017-%05d-%06d.nii,1', 'wrMFBTAPE-0019-%05d-%06d.nii,1'};
+                                                                                         
 anatdir= 'C:\Users\zebaq\Documents\MATLAB\fMRI\BTAPE\BIDS\sub-01\anat\sub-01_T1w';
 addpath(anatdir)
 %This functionis a batch script for pre-processing fMRI data
@@ -47,16 +49,16 @@ addpath(anatdir)
         % Construct full path to the current subfolder
         current_subfolder = fullfile(base_dir, subfolders{j});
     
-        % Generate file paths for Runs
-        scans_run = arrayfun(@(i) fullfile(current_subfolder, sprintf(func_files{j}, i, i)), 1:360, 'UniformOutput', false);
-         scans_run = scans_run';
+       
         if contains(task,'1')
        disp('implementing task 1');
        %REALIGNMENT (Spatial realignment- motion correction)
        % This will run the realign job which will estimate the 6 parameter (rigid body) spatial transformation 
        % that will align the times series of images and will modify the header of the input images(*.hdr),
        % such that they reflect the relative orientation of the data after correction for movement artefacts
-      
+       % Generate file paths for Runs
+         scans_run = arrayfun(@(i) fullfile(current_subfolder, sprintf(func_files{j}, i, i)), 1:360, 'UniformOutput', false);
+         scans_run = scans_run';
         
         job{1}.spm.spatial.realign.estwrite.data = {scans_run};          % Assign .nii files to the job structure
         job{1}.spm.spatial.realign.estwrite.eoptions.quality  = 0.9;     % Estimation option quality 
@@ -178,7 +180,10 @@ addpath(anatdir)
      if contains(task,'6')
         disp('implementing task 6');
         %%SMOOTHING
-        job{1}.spm.spatial.smooth.data = {strcat(anatdir,'\wmMFBTAPE-0024-00001-000001.nii,1')};
+         % Generate file paths for Runs
+         norm_scans_run = arrayfun(@(i) fullfile(current_subfolder, sprintf(norm_func_files{j}, i, i)), 1:360, 'UniformOutput', false);
+         norm_scans_run = norm_scans_run';
+        job{1}.spm.spatial.smooth.data = {norm_scans_run;};
         job{1}.spm.spatial.smooth.fwhm = [6 6 6];
         job{1}.spm.spatial.smooth.dtype = 0;
         job{1}.spm.spatial.smooth.im = 0;
