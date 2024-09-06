@@ -186,7 +186,7 @@ addpath(anatdir)
          % Generate file paths for Runs
          norm_scans_run = arrayfun(@(i) fullfile(current_subfolder, sprintf(norm_func_files{j}, i, i)), 1:360, 'UniformOutput', false);
          norm_scans_run = norm_scans_run';
-        job{1}.spm.spatial.smooth.data = {norm_scans_run;};
+        job{1}.spm.spatial.smooth.data = norm_scans_run;
         job{1}.spm.spatial.smooth.fwhm = [6 6 6];
         job{1}.spm.spatial.smooth.dtype = 0;
         job{1}.spm.spatial.smooth.im = 0;
